@@ -14,7 +14,6 @@ go get https://github.com/do-community/project-archipelago-go-backend
 cd project-archipelago-go-backend
 go mod init 
 go run .
-```
 
 API Endpoint : http://127.0.0.1:8080/
 
@@ -33,7 +32,7 @@ API Endpoint : http://127.0.0.1:8080/
 └── config.json
 └── main.go
 └── README.md
-```
+``` 
 
 ## API
 
