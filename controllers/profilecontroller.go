@@ -1,10 +1,15 @@
 package controllers
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 // func CreateProfile(w http.ResponseWriter, r *http.Request) {
@@ -28,13 +33,24 @@ func GetProfileById(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(profileId)
 }
 
+const uri = "$MONGO_URI"
+
 func GetProfiles(w http.ResponseWriter, r *http.Request) {
 	// var profiles []entities.Profiles
 	// database.Instance.Find(&profiles)
 	// w.Header().Set("Content-Type", "application/json")
 	// w.WriteHeader(http.StatusOK)
 	// json.NewEncoder(w).Encode(profiles)
-	fmt.Println("hey, the GET route works")
+	client, _ := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+
+	coll := client.Database("linktree").Collection("users")
+	var result bson.M
+	_ = coll.FindOne(context.TODO(), bson.D{{"username", "test"}}).Decode(&result)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(result)
+
 }
 
 // func UpdateProfile(w http.ResponseWriter, r *http.Request) {

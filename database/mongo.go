@@ -11,7 +11,7 @@ import (
 
 // Connection URI
 
-const uri = ""
+const uri = "$MONGO_URI"
 
 // const uri = os.Getenv("MONGO_URI")
 
